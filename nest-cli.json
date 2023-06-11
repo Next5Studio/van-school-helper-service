@@ -13,10 +13,19 @@
     "chat-service": {
       "type": "application",
       "root": "apps/chat-service",
-      "entryFile": "main",
+      "entryFile": "app",
       "sourceRoot": "apps/chat-service/src",
       "compilerOptions": {
         "tsConfigPath": "apps/chat-service/tsconfig.app.json"
+      }
+    },
+    "content-service": {
+      "type": "application",
+      "root": "apps/content-service",
+      "entryFile": "app",
+      "sourceRoot": "apps/content-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/content-service/tsconfig.app.json"
       }
     },
     "lib-core": {
@@ -28,13 +37,13 @@
         "tsConfigPath": "libs/lib-core/tsconfig.lib.json"
       }
     },
-    "content-service": {
-      "type": "application",
-      "root": "apps/content-service",
-      "entryFile": "main",
-      "sourceRoot": "apps/content-service/src",
+    "lib-auth": {
+      "type": "library",
+      "root": "libs/lib-auth",
+      "entryFile": "index",
+      "sourceRoot": "libs/lib-auth/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/content-service/tsconfig.app.json"
+        "tsConfigPath": "libs/lib-auth/tsconfig.lib.json"
       }
     }
   }

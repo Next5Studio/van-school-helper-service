@@ -1,5 +1,8 @@
-import { WebHostRunner } from '@lib/lib-core'
-import { ChatServer } from 'apps/chat-service/src/main'
-import { ContentServer } from 'apps/content-service/src/main'
+import { WebApplicationHostBuilder } from '@lib/lib-core'
+import { ChatApplication } from 'apps/chat-service/src/app'
+import { ContentApplication } from '../../content-service/src/app'
 
-WebHostRunner.withHost(ChatServer, ContentServer).run()
+WebApplicationHostBuilder.withApplications(
+    ChatApplication,
+    ContentApplication
+).run()

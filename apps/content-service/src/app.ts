@@ -1,8 +1,8 @@
-import { ContentServiceModule } from './content-service.module'
-import { HostingOptions, WebHost } from '@lib/lib-core'
+import { HostingOptions, WebApplication } from '@lib/lib-core'
 import { NestApplicationOptions } from '@nestjs/common'
+import { ContentApplicationModule } from './module'
 
-export class ContentServer extends WebHost {
+export class ContentApplication extends WebApplication {
     options: HostingOptions<NestApplicationOptions> = {
         hostingOptions: {
             http: {
@@ -12,6 +12,6 @@ export class ContentServer extends WebHost {
     }
 
     constructor() {
-        super(ContentServiceModule)
+        super(ContentApplicationModule)
     }
 }

@@ -21,8 +21,8 @@
       "@lib/lib-core": [
         "libs/lib-core/src"
       ],
-      "@lib/lib-core/*": [
-        "libs/lib-core/src/*"
+      "@lib/lib-auth": [
+        "libs/lib-auth/src"
       ]
     }
   }

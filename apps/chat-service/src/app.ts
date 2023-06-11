@@ -1,8 +1,9 @@
-import { ChatServiceModule } from './chat-service.module'
-import { WebHost, HostingOptions } from '@lib/lib-core'
 import { NestApplicationOptions } from '@nestjs/common'
+import { WebApplication, HostingOptions } from '@lib/lib-core'
 
-export class ChatServer extends WebHost {
+import { ChatApplicationModule } from './module'
+
+export class ChatApplication extends WebApplication {
     options: HostingOptions<NestApplicationOptions> = {
         hostingOptions: {
             http: {
@@ -12,6 +13,6 @@ export class ChatServer extends WebHost {
     }
 
     constructor() {
-        super(ChatServiceModule)
+        super(ChatApplicationModule)
     }
 }
