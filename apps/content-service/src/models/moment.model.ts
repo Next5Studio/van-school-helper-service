@@ -7,7 +7,7 @@ import { Content } from './content.model'
     collection: 'tb_van_moments',
     _id: false
 })
-export class Moment extends Content<any> {
+export class Moment extends Content {
     @Prop({
         index: true,
         required: true
@@ -22,14 +22,14 @@ export class Moment extends Content<any> {
     momentId: string
 
     @Prop({
-        type: SchemaTypes.Array
-    })
-    gallery: Array<string>
-
-    @Prop({
         required: true
     })
     content: string
+
+    @Prop({
+        type: SchemaTypes.Array
+    })
+    gallery: Array<string>
 }
 
 export const MomentSchema = SchemaFactory.createForClass(Moment)

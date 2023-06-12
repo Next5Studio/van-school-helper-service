@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs'
+import { OpenDirOptions, readFileSync } from 'fs'
 import {
     CanActivate,
     ExceptionFilter,
@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { ExpressAdapter } from '@nestjs/platform-express'
+import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const express = require('express')
@@ -45,6 +46,12 @@ abstract class WebApplication {
         this._module = module
     }
 
+    protected buildApplicationDocument(
+        builder: DocumentBuilder
+    ): (Omit<OpenAPIObject, 'paths'> & { route: string }) | undefined {
+        return undefined
+    }
+
     async bootstrap() {
         const {
             hostingOptions: {
@@ -76,6 +83,18 @@ abstract class WebApplication {
         }
         if (pips?.length > 0) {
             this._app.useGlobalPipes(...pips)
+        }
+
+        const swaggerOptions = this.buildApplicationDocument(
+            new DocumentBuilder()
+        )
+        if (swaggerOptions) {
+            const { route, ...swaggerConfig } = swaggerOptions
+            const document = SwaggerModule.createDocument(
+                this._app,
+                swaggerConfig
+            )
+            SwaggerModule.setup(route, this._app, document)
         }
         await this._app.init()
 

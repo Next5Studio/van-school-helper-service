@@ -7,6 +7,9 @@ import { SharedModule } from '@lib/lib-core'
 import { MomentController } from './controllers/moment.controller'
 import { AvatarController } from './controllers/avatar.controller'
 import { ProposeController } from './controllers/propose.controller'
+import { MomentService } from './services/moment.service'
+import { Moment, MomentSchema } from './models/moment.model'
+import { Propose, ProposeSchema } from './models/propose.model'
 
 @Module({
     imports: [
@@ -17,9 +20,13 @@ import { ProposeController } from './controllers/propose.controller'
                 return dbOptions
             },
             inject: [ConfigService]
-        })
+        }),
+        MongooseModule.forFeature([
+            { name: Moment.name, schema: MomentSchema },
+            { name: Propose.name, schema: ProposeSchema }
+        ])
     ],
-    providers: [],
+    providers: [MomentService],
     controllers: [AvatarController, MomentController, ProposeController]
 })
 export class ContentApplicationModule {}

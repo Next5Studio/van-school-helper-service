@@ -7,7 +7,7 @@ import { Content } from './content.model'
     collection: 'tb_van_propose',
     _id: false
 })
-export class Propose extends Content<any> {
+export class Propose extends Content {
     @Prop({
         index: true,
         required: true
