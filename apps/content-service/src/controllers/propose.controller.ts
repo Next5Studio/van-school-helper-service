@@ -1,5 +1,14 @@
 import { ApiTags } from '@nestjs/swagger'
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common'
+import {
+    Controller,
+    Get,
+    Post,
+    Put,
+    Delete,
+    Param,
+    Body,
+    Query
+} from '@nestjs/common'
 import { Response } from '@lib/lib-core'
 
 import { ProposeService, CreateProposeDTO } from '../services/propose.service'
@@ -10,8 +19,14 @@ export class ProposeController {
     constructor(private readonly ProposeService: ProposeService) {}
 
     @Get('all')
-    async all() {
-        return Response.ok(await this.ProposeService.findAll())
+    async all(
+        @Query('page') page = 1,
+        @Query('pageNum') pageNum = 10,
+        @Query('sort') sort: 'ASC' | 'DESC' = 'DESC'
+    ) {
+        return Response.ok(
+            await this.ProposeService.findAll(page, pageNum, sort)
+        )
     }
 
     @Get(':id')

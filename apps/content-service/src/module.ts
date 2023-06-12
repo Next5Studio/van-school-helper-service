@@ -1,3 +1,4 @@
+import * as paginate from 'mongoose-paginate-v2'
 import { Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
 import { ConfigService } from '@nestjs/config'
@@ -22,9 +23,21 @@ import { Propose, ProposeSchema } from './models/propose.model'
             },
             inject: [ConfigService]
         }),
-        MongooseModule.forFeature([
-            { name: Moment.name, schema: MomentSchema },
-            { name: Propose.name, schema: ProposeSchema }
+        MongooseModule.forFeatureAsync([
+            {
+                name: Moment.name,
+                useFactory: () => {
+                    MomentSchema.plugin(paginate)
+                    return MomentSchema
+                }
+            },
+            {
+                name: Propose.name,
+                useFactory: () => {
+                    ProposeSchema.plugin(paginate)
+                    return ProposeSchema
+                }
+            }
         ])
     ],
     providers: [MomentService, ProposeService],

@@ -1,5 +1,14 @@
 import { ApiTags } from '@nestjs/swagger'
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common'
+import {
+    Controller,
+    Get,
+    Post,
+    Put,
+    Delete,
+    Param,
+    Body,
+    Query
+} from '@nestjs/common'
 import { Response } from '@lib/lib-core'
 
 import { MomentService, CreateMomentDTO } from '../services/moment.service'
@@ -10,8 +19,14 @@ export class MomentController {
     constructor(private readonly momentService: MomentService) {}
 
     @Get('all')
-    async all() {
-        return Response.ok(await this.momentService.findAll())
+    async all(
+        @Query('page') page = 1,
+        @Query('pageNum') pageNum = 10,
+        @Query('sort') sort: 'ASC' | 'DESC' = 'DESC'
+    ) {
+        return Response.ok(
+            await this.momentService.findAll(page, pageNum, sort)
+        )
     }
 
     @Get(':id')
