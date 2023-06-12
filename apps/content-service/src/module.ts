@@ -8,6 +8,7 @@ import { MomentController } from './controllers/moment.controller'
 import { AvatarController } from './controllers/avatar.controller'
 import { ProposeController } from './controllers/propose.controller'
 import { MomentService } from './services/moment.service'
+import { ProposeService } from './services/propose.service'
 import { Moment, MomentSchema } from './models/moment.model'
 import { Propose, ProposeSchema } from './models/propose.model'
 
@@ -26,7 +27,7 @@ import { Propose, ProposeSchema } from './models/propose.model'
             { name: Propose.name, schema: ProposeSchema }
         ])
     ],
-    providers: [MomentService],
+    providers: [MomentService, ProposeService],
     controllers: [AvatarController, MomentController, ProposeController]
 })
 export class ContentApplicationModule {}

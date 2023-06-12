@@ -4,34 +4,35 @@ import { InjectModel } from '@nestjs/mongoose'
 import { Injectable } from '@nestjs/common'
 
 import { BaseContentService, BaseContentDTO } from './base-content.service'
-import { Moment } from '../models/moment.model'
+import { Propose } from '../models/propose.model'
 
-export class CreateMomentDTO extends BaseContentDTO {
+export class CreateProposeDTO extends BaseContentDTO {
     @ApiProperty()
     userId: string
 
     @ApiProperty()
-    momentId: string
+    proposeId: string
 
     @ApiProperty()
     content: string
 
-    @ApiProperty({
-        required: false
-    })
-    gallery?: Array<string>
+    @ApiProperty()
+    cover: string
 
     constructor() {
         super()
-        this.type = 'CONTENT_MOMENT'
+        this.type = 'CONTENT_PROPOSE'
     }
 }
 
 @Injectable()
-export class MomentService extends BaseContentService<Moment, CreateMomentDTO> {
+export class ProposeService extends BaseContentService<
+    Propose,
+    CreateProposeDTO
+> {
     constructor(
-        @InjectModel(Moment.name)
-        model: Model<Moment>
+        @InjectModel(Propose.name)
+        model: Model<Propose>
     ) {
         super(model)
     }

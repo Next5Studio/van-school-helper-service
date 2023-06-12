@@ -1,9 +1,17 @@
 import { Model } from 'mongoose'
+import { ApiProperty } from '@nestjs/swagger'
 
 import { Content } from '../models/content.model'
 
-export interface IBaseContentDTO<T = any> {
-    type: string
+export class BaseContentDTO<T = any> {
+    @ApiProperty({
+        required: false
+    })
+    type?: string
+
+    @ApiProperty({
+        required: false
+    })
     metadata?: T
 }
 
