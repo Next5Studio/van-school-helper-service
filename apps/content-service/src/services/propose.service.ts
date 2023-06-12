@@ -11,18 +11,10 @@ export class CreateProposeDTO extends BaseContentDTO {
     userId: string
 
     @ApiProperty()
-    proposeId: string
-
-    @ApiProperty()
     content: string
 
     @ApiProperty()
     cover: string
-
-    constructor() {
-        super()
-        this.type = 'CONTENT_PROPOSE'
-    }
 }
 
 @Injectable()

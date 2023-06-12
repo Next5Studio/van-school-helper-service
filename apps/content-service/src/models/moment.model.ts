@@ -1,13 +1,25 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose'
-import { SchemaTypes } from 'mongoose'
+import { SchemaTypes, Types } from 'mongoose'
 
 import { Content } from './content.model'
 
 @Schema({
     collection: 'tb_van_moments',
-    _id: false
+    toJSON: {
+        transform: (doc, ret) => {
+            ret.momentId = ret._id
+            delete ret._id
+            delete ret.__v
+        }
+    }
 })
 export class Moment extends Content {
+    @Prop({
+        type: SchemaTypes.ObjectId,
+        index: true
+    })
+    momentId: Types.ObjectId
+
     @Prop({
         index: true,
         required: true
@@ -15,11 +27,10 @@ export class Moment extends Content {
     userId: string
 
     @Prop({
-        type: SchemaTypes.ObjectId,
         index: true,
-        required: true
+        default: 'CONTENT_MOMENT'
     })
-    momentId: string
+    type: string
 
     @Prop({
         required: true

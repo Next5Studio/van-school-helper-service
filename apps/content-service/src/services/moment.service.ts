@@ -11,20 +11,12 @@ export class CreateMomentDTO extends BaseContentDTO {
     userId: string
 
     @ApiProperty()
-    momentId: string
-
-    @ApiProperty()
     content: string
 
     @ApiProperty({
         required: false
     })
     gallery?: Array<string>
-
-    constructor() {
-        super()
-        this.type = 'CONTENT_MOMENT'
-    }
 }
 
 @Injectable()

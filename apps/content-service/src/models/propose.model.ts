@@ -1,13 +1,25 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose'
-import { SchemaTypes } from 'mongoose'
+import { SchemaTypes, Types } from 'mongoose'
 
 import { Content } from './content.model'
 
 @Schema({
     collection: 'tb_van_propose',
-    _id: false
+    toJSON: {
+        transform: (doc, ret) => {
+            ret.proposeId = ret._id
+            delete ret._id
+            delete ret.__v
+        }
+    }
 })
 export class Propose extends Content {
+    @Prop({
+        type: SchemaTypes.ObjectId,
+        index: true
+    })
+    proposeId: Types.ObjectId
+
     @Prop({
         index: true,
         required: true
@@ -15,11 +27,10 @@ export class Propose extends Content {
     userId: string
 
     @Prop({
-        type: SchemaTypes.ObjectId,
         index: true,
-        required: true
+        default: 'CONTENT_PROPOSE'
     })
-    proposeId: string
+    type: string
 
     @Prop({
         required: true
@@ -30,6 +41,10 @@ export class Propose extends Content {
         required: true
     })
     content: string
+
+    constructor() {
+        super('CONTENT_PROPOSE')
+    }
 }
 
 export const ProposeSchema = SchemaFactory.createForClass(Propose)

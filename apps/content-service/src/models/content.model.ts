@@ -4,7 +4,6 @@ import { Schema, Prop } from '@nestjs/mongoose'
 @Schema()
 export class Content<T = any> extends Document {
     @Prop({
-        required: true,
         index: true
     })
     type: string
@@ -21,4 +20,9 @@ export class Content<T = any> extends Document {
         default: Date.now
     })
     updatedAt: Date
+
+    constructor(type?: string) {
+        super()
+        this.type = type
+    }
 }
