@@ -19,7 +19,7 @@ import { HttpExceptionFilter } from '../filters/HttpExceptionFilter'
                     // 可以根据process.env来控制加载什么json文件
                     return await new ConfigurationBuilder()
                         .addJsonFile(
-                            resolve(cwd(), './config/development.config.json')
+                            resolve(cwd(), './config/local.config.json')
                         )
                         .build()
                 }

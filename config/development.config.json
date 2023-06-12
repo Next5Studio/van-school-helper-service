@@ -8,7 +8,12 @@
   ],
   "config": {
     "content": {
-      "avatarSize": 400
+      "avatarSize": 400,
+      "db": {
+        "uri": "MONGODB_CONNECTION_STRING",
+        "user": "MONGODB_USER",
+        "pass": "MONGODB_PASSWORD"
+      }
     }
   }
 }
