@@ -1,5 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose'
 import { SchemaTypes, Types } from 'mongoose'
+import { Content } from './content.model'
 
 @Schema({
     collection: 'tb_van_comments',
@@ -11,7 +12,7 @@ import { SchemaTypes, Types } from 'mongoose'
         }
     }
 })
-export class Comment extends Document {
+export class Comment extends Content {
     @Prop({
         type: SchemaTypes.ObjectId,
         index: true
@@ -22,7 +23,19 @@ export class Comment extends Document {
         index: true,
         required: true
     })
+    relatedContentId: string
+
+    @Prop({
+        index: true,
+        required: true
+    })
     userId: string
+
+    @Prop({
+        index: true,
+        default: 'CONTENT_COMMENT'
+    })
+    type: string
 
     @Prop({
         required: true
@@ -31,14 +44,15 @@ export class Comment extends Document {
 
     @Prop({
         index: true,
-        required: true
+        default: null
     })
-    belongsToCommentId: string
+    belongsToCommentId: string | null
 
     @Prop({
-        index: true
+        index: true,
+        default: null
     })
-    replyToCommentId: string
+    replyToCommentId: string | null
 }
 
 export const CommentSchema = SchemaFactory.createForClass(Comment)

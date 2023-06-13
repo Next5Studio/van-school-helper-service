@@ -8,10 +8,13 @@ import { SharedModule } from '@lib/lib-core'
 import { MomentController } from './controllers/moment.controller'
 import { AvatarController } from './controllers/avatar.controller'
 import { ProposeController } from './controllers/propose.controller'
+import { CommentController } from './controllers/comment.controller'
 import { MomentService } from './services/moment.service'
 import { ProposeService } from './services/propose.service'
+import { CommentService } from './services/comment.service'
 import { Moment, MomentSchema } from './models/moment.model'
 import { Propose, ProposeSchema } from './models/propose.model'
+import { Comment, CommentSchema } from './models/comment.model'
 
 @Module({
     imports: [
@@ -37,10 +40,22 @@ import { Propose, ProposeSchema } from './models/propose.model'
                     ProposeSchema.plugin(paginate)
                     return ProposeSchema
                 }
+            },
+            {
+                name: Comment.name,
+                useFactory: () => {
+                    CommentSchema.plugin(paginate)
+                    return CommentSchema
+                }
             }
         ])
     ],
-    providers: [MomentService, ProposeService],
-    controllers: [AvatarController, MomentController, ProposeController]
+    providers: [MomentService, ProposeService, CommentService],
+    controllers: [
+        AvatarController,
+        MomentController,
+        ProposeController,
+        CommentController
+    ]
 })
 export class ContentApplicationModule {}
